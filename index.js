@@ -92,53 +92,20 @@ const characters = [
   "/",
 ];
 
-const symbolsCheckboxInput = document.querySelector("#symbols");
-const numbersCheckboxInput = document.querySelector("#numbers");
-const passwordLengthInput = document.querySelector("#password-length");
-const passwordLengthLabel = document.querySelector("#password-length-label");
+const symbolsInput = document.querySelector("#symbols-input");
+const numbersInput = document.querySelector("#numbers-input");
+const lengthInput = document.querySelector("#length-input");
+const lengthLabel = document.querySelector("#length-label");
 const generateButton = document.querySelector("#generate-passwords");
 const passwordBoxes = document.querySelectorAll(".password-box");
 const passwordLabels = document.querySelectorAll(".password-label");
 const switchModeButton = document.querySelector("#switch-mode");
 const body = document.body;
 
-// Copy password to clipboard
-
-passwordBoxes.forEach((box) => {
-  const passwordLabel = box.querySelector(".password-label");
-
-  box.addEventListener("click", () => {
-    const password = passwordLabel.textContent;
-    copyPasswordToClipboard(password);
-  });
-});
-
-function copyPasswordToClipboard(password) {
-  navigator.clipboard
-    .writeText(password)
-    .then(() => {
-      // password copied
-    })
-    .catch((error) => {
-      // error
-    });
-}
-
-// Switch theme mode
-
-switchModeButton.addEventListener("click", toggleMode);
-
-function toggleMode() {
-  body.classList.toggle("light-mode");
-  switchModeButton.textContent = body.classList.contains("light-mode")
-    ? "dark_mode"
-    : "light_mode";
-}
-
 // Update the password length label
 
-passwordLengthInput.addEventListener("input", () => {
-  passwordLengthLabel.textContent = passwordLengthInput.value;
+lengthInput.addEventListener("input", () => {
+  lengthLabel.textContent = `( ${lengthInput.value} )`;
 });
 
 // Generate random passwords
@@ -146,9 +113,9 @@ passwordLengthInput.addEventListener("input", () => {
 generateButton.addEventListener("click", generatePasswords);
 
 function generatePasswords() {
-  const isSymbolChecked = symbolsCheckboxInput.checked;
-  const isNumbersChecked = numbersCheckboxInput.checked;
-  const passwordLength = Number(passwordLengthInput.value);
+  const isSymbolChecked = symbolsInput.checked;
+  const isNumbersChecked = numbersInput.checked;
+  const passwordLength = Number(lengthInput.value);
 
   const filteredCharacters = filterCharacters(
     isSymbolChecked,
@@ -196,4 +163,43 @@ function generatePassword(passwordLength, characters) {
 
 function getRandomNumber(max) {
   return Math.floor(Math.random() * max);
+}
+
+// Copy password to clipboard
+let savedPassword = "";
+
+passwordBoxes.forEach((box) => {
+  const passwordLabel = box.querySelector(".password-label");
+
+  box.addEventListener("mousedown", () => {
+    const password = passwordLabel.textContent;
+    copyPasswordToClipboard(password, passwordLabel);
+    savedPassword = password;
+  });
+
+  box.addEventListener("mouseup", () => {
+    passwordLabel.textContent = savedPassword;
+  });
+});
+
+function copyPasswordToClipboard(password, passwordLabel) {
+  navigator.clipboard
+    .writeText(password)
+    .then(() => {
+      passwordLabel.textContent = "Copied!";
+    })
+    .catch((error) => {
+      passwordLabel.textContent = "Something went wrong!";
+    });
+}
+
+// Switch theme mode
+
+switchModeButton.addEventListener("click", toggleMode);
+
+function toggleMode() {
+  body.classList.toggle("light-mode");
+  switchModeButton.textContent = body.classList.contains("light-mode")
+    ? "dark_mode"
+    : "light_mode";
 }

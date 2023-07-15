@@ -15,33 +15,32 @@
   <body>
     <div class="password-generator">
       <div class="generator-container">
-        <div class="temp">
+        <div>
           <h1 class="title">Generate a <span>random password</span></h1>
           <p class="description">Never use an insecure password again.</p>
         </div>
         <fieldset class="generator-settings">
-          <label class="form-control" for="symbols">
-            <p class="form-label">
+          <label class="input-box" for="symbols">
+            <p class="input-label">
               <span class="material-symbols-outlined"> emoji_symbols </span>
               Turn on symbols
             </p>
-            <input id="symbols" name="symbols" type="checkbox" checked />
+            <input id="symbols-input" name="symbols" type="checkbox" checked />
           </label>
-
-          <label class="form-control" for="numbers">
-            <p class="form-label">
+          <label class="input-box" for="numbers">
+            <p class="input-label">
               <span class="material-symbols-outlined"> emoji_symbols </span>
               Turn on numbers
             </p>
-            <input id="numbers" name="numbers" type="checkbox" checked />
+            <input id="numbers-input" name="numbers" type="checkbox" checked />
           </label>
-          <label class="form-control" for="password-length">
-            <p class="form-label">
+          <label class="input-box" for="length-input">
+            <p class="input-label">
               <span class="material-symbols-outlined"> encrypted </span>
-              Password length: (<span id="password-length-label">12</span>)
+              Password length: <span id="length-label">( 12 )</span>
             </p>
             <input
-              id="password-length"
+              id="length-input"
               name="length"
               type="range"
               min="8"
@@ -50,10 +49,7 @@
             />
           </label>
           <div class="generator-controllers">
-            <span
-              id="switch-mode"
-              class="color-scheme-icon material-symbols-outlined"
-            >
+            <span id="switch-mode" class="theme-icon material-symbols-outlined">
               light_mode
             </span>
             <button class="btn" id="generate-passwords">
