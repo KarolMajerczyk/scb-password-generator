@@ -91,3 +91,65 @@ const characters = [
   "?",
   "/",
 ];
+
+const symbolsCheckboxInput = document.querySelector("#symbols");
+const numbersCheckboxInput = document.querySelector("#numbers");
+const passwordLengthInput = document.querySelector("#password-length");
+const passwordLengthLabel = document.querySelector("#password-length-label");
+const generateButton = document.querySelector("#generate-passwords");
+
+const firstPasswordLabel = document.querySelector("#first-password");
+const secondPasswordLabel = document.querySelector("#second-password");
+
+passwordLengthInput.addEventListener("change", () => {
+  passwordLengthLabel.textContent = passwordLengthInput.value;
+});
+
+generateButton.addEventListener("click", () => {
+  const isSymbolChecked = symbolsCheckboxInput.checked;
+  const isNumbersChecked = numbersCheckboxInput.checked;
+  const passwordLength = passwordLengthInput.value;
+
+  const filteredCharacters = filterCharacters(
+    isSymbolChecked,
+    isNumbersChecked
+  );
+
+  firstPasswordLabel.textContent = generatePassword(
+    passwordLength,
+    filteredCharacters
+  );
+  secondPasswordLabel.textContent = generatePassword(
+    passwordLength,
+    filteredCharacters
+  );
+});
+
+function filterCharacters(isSymbolChecked, isNumbersChecked) {
+  let filteredCharacters = [...characters];
+
+  if (!isSymbolChecked) {
+    filteredCharacters = filteredCharacters.filter((char) =>
+      /^[a-zA-Z0-9]+$/.test(char)
+    );
+  }
+
+  if (!isNumbersChecked) {
+    filteredCharacters = filteredCharacters.filter((char) => isNaN(char));
+  }
+
+  return filteredCharacters;
+}
+
+function generatePassword(passwordLength, characters) {
+  let password = "";
+
+  for (let i = 0; i < passwordLength; i++) {
+    const randomNumber = Math.floor(Math.random() * characters.length);
+    password += characters[randomNumber];
+  }
+
+  console.log(password);
+
+  return password;
+}

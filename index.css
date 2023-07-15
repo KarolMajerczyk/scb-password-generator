@@ -79,7 +79,7 @@ body {
   border-radius: 10px;
 
   position: relative;
-  max-width: 650px;
+  max-width: 700px;
 }
 
 .color-scheme-icon {
@@ -111,7 +111,7 @@ body {
   border-bottom: 2px solid var(--clr-secondary-400);
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 800px) {
   .generator-container {
     grid-template-columns: 1fr;
     gap: 20px;
@@ -126,7 +126,6 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
 }
 
 .title {
@@ -134,7 +133,7 @@ body {
   font-weight: var(--fw-bold);
 
   margin-bottom: 20px;
-  max-width: 13ch;
+  max-width: 12ch;
 }
 
 .title span {
@@ -146,7 +145,7 @@ body {
   font-size: var(--fs-500);
   font-weight: var(--fw-regular);
   line-height: 1.5;
-  max-width: 25ch;
+  max-width: 22ch;
 }
 
 /* Settings */
@@ -233,7 +232,7 @@ input[type="range"] {
   gap: 20px;
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 800px) {
   .passwords-container {
     flex-direction: column;
   }
