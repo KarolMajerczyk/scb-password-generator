@@ -97,59 +97,103 @@ const numbersCheckboxInput = document.querySelector("#numbers");
 const passwordLengthInput = document.querySelector("#password-length");
 const passwordLengthLabel = document.querySelector("#password-length-label");
 const generateButton = document.querySelector("#generate-passwords");
+const passwordBoxes = document.querySelectorAll(".password-box");
+const passwordLabels = document.querySelectorAll(".password-label");
+const switchModeButton = document.querySelector("#switch-mode");
+const body = document.body;
 
-const firstPasswordLabel = document.querySelector("#first-password");
-const secondPasswordLabel = document.querySelector("#second-password");
+// Copy password to clipboard
 
-passwordLengthInput.addEventListener("change", () => {
+passwordBoxes.forEach((box) => {
+  const passwordLabel = box.querySelector(".password-label");
+
+  box.addEventListener("click", () => {
+    const password = passwordLabel.textContent;
+    copyPasswordToClipboard(password);
+  });
+});
+
+function copyPasswordToClipboard(password) {
+  navigator.clipboard
+    .writeText(password)
+    .then(() => {
+      // password copied
+    })
+    .catch((error) => {
+      // error
+    });
+}
+
+// Switch theme mode
+
+switchModeButton.addEventListener("click", toggleMode);
+
+function toggleMode() {
+  body.classList.toggle("light-mode");
+  switchModeButton.textContent = body.classList.contains("light-mode")
+    ? "dark_mode"
+    : "light_mode";
+}
+
+// Update the password length label
+
+passwordLengthInput.addEventListener("input", () => {
   passwordLengthLabel.textContent = passwordLengthInput.value;
 });
 
-generateButton.addEventListener("click", () => {
+// Generate random passwords
+
+generateButton.addEventListener("click", generatePasswords);
+
+function generatePasswords() {
   const isSymbolChecked = symbolsCheckboxInput.checked;
   const isNumbersChecked = numbersCheckboxInput.checked;
-  const passwordLength = passwordLengthInput.value;
+  const passwordLength = Number(passwordLengthInput.value);
 
   const filteredCharacters = filterCharacters(
     isSymbolChecked,
     isNumbersChecked
   );
 
-  firstPasswordLabel.textContent = generatePassword(
-    passwordLength,
-    filteredCharacters
-  );
-  secondPasswordLabel.textContent = generatePassword(
-    passwordLength,
-    filteredCharacters
-  );
-});
+  passwordLabels.forEach((label) => {
+    const password = generatePassword(passwordLength, filteredCharacters);
+    label.textContent = password;
+  });
+}
 
 function filterCharacters(isSymbolChecked, isNumbersChecked) {
-  let filteredCharacters = [...characters];
+  let filteredCharacters = characters;
 
   if (!isSymbolChecked) {
-    filteredCharacters = filteredCharacters.filter((char) =>
-      /^[a-zA-Z0-9]+$/.test(char)
-    );
+    filteredCharacters = filteredCharacters.filter((char) => isSymbol(char));
   }
 
   if (!isNumbersChecked) {
-    filteredCharacters = filteredCharacters.filter((char) => isNaN(char));
+    filteredCharacters = filteredCharacters.filter((char) => isNumber(char));
   }
 
   return filteredCharacters;
+}
+
+function isSymbol(char) {
+  return /^[a-zA-Z0-9]+$/.test(char);
+}
+
+function isNumber(char) {
+  return isNaN(Number(char));
 }
 
 function generatePassword(passwordLength, characters) {
   let password = "";
 
   for (let i = 0; i < passwordLength; i++) {
-    const randomNumber = Math.floor(Math.random() * characters.length);
+    const randomNumber = getRandomNumber(characters.length);
     password += characters[randomNumber];
   }
 
-  console.log(password);
-
   return password;
+}
+
+function getRandomNumber(max) {
+  return Math.floor(Math.random() * max);
 }

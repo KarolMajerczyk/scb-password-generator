@@ -29,6 +29,14 @@
   --ff-base: "Inter", sans-serif;
 }
 
+.light-mode {
+  --clr-secondary-500: #ecfdf5;
+  --clr-neutral-100: #2b283a;
+  --clr-accent-400: #10b981;
+  --clr-neutral-200: #6b7280;
+  --clr-accent-300: #5def92;
+}
+
 /* CSS Reset */
 
 *,
@@ -83,10 +91,6 @@ body {
 }
 
 .color-scheme-icon {
-  /* position: absolute;
-  bottom: -20px;
-  left: 50%;
-  transform: translateX(-50%); */
   font-size: var(--fs-600);
 
   transition: all 0.5s ease;
@@ -94,6 +98,7 @@ body {
   padding: 10px;
   border-radius: 50%;
   aspect-ratio: 1;
+  color: #ffffff;
 }
 
 .color-scheme-icon:hover {
@@ -208,7 +213,7 @@ input[type="range"] {
   background: var(--clr-accent-500);
   font-size: var(--fs-500);
   font-weight: var(--fw-regular);
-  color: inherit;
+  color: #ffffff;
   border: none;
   padding: 10px 15px;
   border-radius: 5px;
@@ -243,7 +248,7 @@ input[type="range"] {
   }
 }
 
-.password-label {
+.password-box {
   background: var(--clr-secondary-400);
   color: var(--clr-accent-300);
   font-size: var(--fs-400);
