@@ -1,24 +1,93 @@
 <html>
   <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"
+    />
     <link rel="stylesheet" href="index.css" />
   </head>
   <body>
-    <div class="container">
-      <div class="password-generator">
-        <div class="generator-container">
-          <h1 class="title">Generate a random password</h1>
-          <p>
-            Never use an
-            <span class="generator-warning">insecure password</span> again.
+    <div class="password-generator">
+      <div class="generator-container">
+        <div class="temp">
+          <h1 class="title">Generate a <span>random password</span></h1>
+          <p class="description">
+            Never use an insecure password again. Try this simple password
+            generator.
           </p>
-          <button id="generate-passwords" class="btn">
-            Generate passwords
-          </button>
         </div>
-        <div class="passwords-outputs">
-          <p id="first-password" class="output-label">Output 1</p>
-          <p id="second-password" class="output-label">Output 2</p>
-        </div>
+        <fieldset class="generator-settings">
+          <label class="form-control" for="symbols">
+            <p class="form-label">
+              <span class="material-symbols-outlined"> emoji_symbols </span>
+              Turn on / off symbols
+            </p>
+            <input
+              id="symbols"
+              name="symbols"
+              value="true"
+              type="checkbox"
+              checked
+            />
+          </label>
+
+          <label class="form-control" for="numbers">
+            <p class="form-label">
+              <span class="material-symbols-outlined"> emoji_symbols </span>
+              Turn on / off numbers
+            </p>
+            <input
+              id="numbers"
+              name="numbers"
+              value="true"
+              type="checkbox"
+              checked
+            />
+          </label>
+          <label class="form-control" for="password-length">
+            <p class="form-label">
+              <span class="material-symbols-outlined"> encrypted </span>
+              Password length: (<span>12</span>)
+            </p>
+            <input
+              id="password-length"
+              name="length"
+              type="range"
+              min="8"
+              max="16"
+              value="12"
+            />
+          </label>
+          <div class="generator-controllers">
+            <span class="color-scheme-icon material-symbols-outlined">
+              light_mode
+            </span>
+            <button class="btn" id="generate-passwords">
+              <span class="material-symbols-outlined"> sync </span>
+              Generate
+            </button>
+          </div>
+        </fieldset>
+      </div>
+
+      <div class="passwords-container">
+        <p class="password-label">
+          <span class="material-symbols-outlined"> lock </span>
+          <span id="first-password">$nfJjy!dDvR&ial</span>
+          <span class="hidden material-symbols-outlined"> content_copy </span>
+        </p>
+
+        <p class="password-label">
+          <span class="material-symbols-outlined"> lock </span>
+          <span id="second-password">eg$xWij@veiPUwK</span>
+          <span class="hidden material-symbols-outlined"> content_copy </span>
+        </p>
       </div>
     </div>
     <script src="index.js"></script>
